@@ -37,6 +37,13 @@ defmodule QuicklistWeb.PageLive do
   end
 
   @impl true
+  def handle_event("clear_completed", _params, socket) do
+    Todo.clear_completed_todos()
+    new_items = Todo.list_todos()
+    {:noreply, assign(socket, items: new_items)}
+  end
+
+  @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     case Todo.delete_todo(id) do
       {:ok, _deleted_todo} ->

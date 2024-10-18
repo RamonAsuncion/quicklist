@@ -1,6 +1,7 @@
 defmodule Quicklist.Todo do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
   alias Quicklist.Repo
   alias __MODULE__
 
@@ -16,6 +17,14 @@ defmodule Quicklist.Todo do
     todo
     |> cast(attrs, [:title, :completed])
     |> validate_required([:title])
+  end
+
+  @doc """
+  Clears all completed todos from the database.
+  """
+  def clear_completed_todos do
+    from(t in __MODULE__, where: t.completed == true)
+    |> Repo.delete_all()
   end
 
   @doc """
