@@ -4,6 +4,7 @@ export function setupThemeToggle() {
   const todoApp = document.getElementById("todo-app");
   const itemCount = document.getElementById("item-count");
   const footer = document.getElementById("footer");
+  const newTodoInput = document.getElementById("new_todo");
 
   themeToggle.addEventListener("click", () => {
     const isDarkMode = document.body.classList.toggle("dark");
@@ -15,6 +16,8 @@ export function setupThemeToggle() {
     footer.classList.toggle("bg-gray-800", isDarkMode);
     todoApp.classList.toggle("text-gray-800", !isDarkMode);
     todoApp.classList.toggle("text-white", isDarkMode);
+
+    newTodoInput.classList.toggle("text-black", true);
 
     if (isDarkMode) {
       themeIcon.classList.remove("fa-sun", "text-gray-800");
