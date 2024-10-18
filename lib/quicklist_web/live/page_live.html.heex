@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<%!-- 
-
-  FIXME: 
-  * the completed() function is bugged.
-  * doesn't let me check off the check box anymore. competed()?
-  * when entering it restarts the color
-  * the color in dark theme turns white because text box is still white.
-  * multiple pages with fixed size so that it can be an app.
- --%>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -43,18 +34,19 @@
           />
         </form>
       </header>
-
       <section class="main">
         <ul class="todo-list space-y-4">
           <%= for item <- @items do %>
-            <li data-id={item.id} class={if completed?(item), do: "line-through", else: ""}>
+            <li data-id={item.id} class={if item.completed, do: "line-through", else: ""}>
               <div class="todo-item flex justify-between items-center">
                 <div class="view flex items-center flex-grow">
-                  <%= if checked?(item) do %>
-                    <input class="toggle w-5 h-5 mr-2" type="checkbox" phx-click="toggle" checked />
-                  <% else %>
-                    <input class="toggle w-5 h-5 mr-2" type="checkbox" phx-click="toggle" />
-                  <% end %>
+                  <input
+                    class="toggle w-5 h-5 mr-2"
+                    type="checkbox"
+                    phx-value-id={item.id}
+                    phx-click="toggle"
+                    checked={item.completed}
+                  />
                   <label class="transition-colors duration-300 text-gray-800">
                     <%= item.title %>
                   </label>
